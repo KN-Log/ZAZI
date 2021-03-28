@@ -15,10 +15,10 @@ import An_examp_eval_break_cap_null from './components/An_examp_eval_break_cap_n
 
 function App(){
   return (
-    <Container>
+    <Container className="p-0" fluid>
         <HashRouter>
           <Header />         
-              <Route exect path="/" component={Contents}/>
+              <Route exact path="/" component={Contents}/>
               <Route path="/br_theor_info" component={Br_theor_info}/>
               <Route path="/algo_opt_ground_dev" component={Algo_opt_ground_dev}/>
               <Route path="/break_cap_neutral" component={Break_cap_neutral}/>
@@ -27,7 +27,7 @@ function App(){
     </Container>
   );
 }
-//<Route path="/eval_break_cap_neutral" component={Eval_break_cap_of_neutral}/>
+
 export default App;
 
 

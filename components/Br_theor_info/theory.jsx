@@ -21,18 +21,18 @@ const Theory = () => {
            <CardText className={textStyle}>
                <br/>
                Заземление нетоковедущих металлических частей электроустано-вок и нейтрали источника тока проводится с целью обеспечения элек-тробезопасности (защитное заземление), 
-               заземление токоведущих ча-стей электроустановок необходимо для обеспечения их нормальной ра-боты (рабочее заземление).
+               заземление токоведущих частей электроустановок необходимо для обеспечения их нормальной работы (рабочее заземление).
            </CardText>
            <CardText className={textStyle}>
                <br/> 
                Основные варианты применения заземляющих устройств приведе-ны на рис. <Majax.Node inline formula="5.3-5.5."/>
-               Устройства по рис. <Majax.Node inline formula="5.3"/> и <Majax.Node inline formula="5.4"/> выполняются как контур-ные, так и выносные, по рис. 
+               Устройства по рис. <Majax.Node inline formula="5.3"/> и <Majax.Node inline formula="5.4"/> выполняются как контурные, так и выносные, по рис. 
                <Majax.Node inline formula="5.5"/> выполняют как выносное заземление
            </CardText>
            <CardText>
                <br/>
                Защита объектов связи от прямых грозовых разрядов достигает-ся в большинстве случаев с помощью молниеприемников 
-               (например,штырь длиной<Majax.Node inluine formula="1.6 м"/> и сечением <Majax.Node inline formula="100 кв. мм"/>), 
+               (например,штырь длиной <Majax.Node inline formula="1.6 м"/> и сечением <Majax.Node inline formula="100 кв. мм"/>), 
                соединенных с отдельнымзащитным заземлением. Ток молнии содержит значительную высоко-частотную составляющую (с частотой более <Majax.Node inline formula="100 кГц"/>), 
                поэтому сопро-тивление заземления включает заметную индуктивную составляющую проводника, соединяющей молниеприемник с устройством заземления. 
                Такое сопротивление называют импульсным и, в зависимости откате-гории молние-защиты <Majax.Node inline formula="(I, II, III)"/> его величина устанавливается в преде-лах 
@@ -43,9 +43,9 @@ const Theory = () => {
                <br/>
                При питании электроустановок <Majax.Node inline formula="(Э/У1,Э/У2)"/> от сети с изолирован-ной нейтралью (система <Majax.Node inline formula="IT"/> ) и линейным 
                напряжением <Majax.Node inline formula="Uл"/> <Majax.Node inline formula="1000"/> В норма сопротивления заземления Rз <Majax.Node inline formula="4Ом"/> при габаритной 
-               мощности <Majax.Node inline formula="PТ"/> трансформатора <Majax.Node inline formula="Т"/>, превышающей <Majax.Node inline formula="PТ 100 кВА"/>, 
-               если <Majax.Node inline formula="PТ 100 кВА"/>, то <Majax.Node inline formula="Rз 10Ом"/>. Если <Majax.Node inline formula="Uл 1000В"/>, 
-               то <Majax.Node inline formula="\frac{Rз ≤ 250 }{I3 ≥ 0.5} "/>, Ом здесь <Majax.Node inline formula="I3"/> – расчетный ток <Majax.Node inline formula="(А)"/> замыкания фазы на землю.
+               мощности <Majax.Node inline formula="P_{Т}"/> трансформатора <Majax.Node inline formula="Т"/>, превышающей <Majax.Node inline formula="P_{Т} 100 кВА"/>, 
+               если <Majax.Node inline formula="P_{Т} 100 кВА"/>, то <Majax.Node inline formula="R_{з} 10Ом"/>. Если <Majax.Node inline formula="U_{л} 1000В"/>, 
+               то <Majax.Node inline formula="\frac{R+{з}≤ 250 }{I_{3} ≥ 0.5} "/>, Ом здесь <Majax.Node inline formula="I_{3}"/> – расчетный ток <Majax.Node inline formula="(А)"/> замыкания фазы на землю.
            </CardText>
            <CardText>
                 <br/>
@@ -54,9 +54,9 @@ const Theory = () => {
                 нулевой рабочий ( <Majax.Node inline formula="ОР"/> или <Majax.Node inline formula="N"/>) проводник может быть использован икакнулевой защитный 
                 (<Majax.Node inline formula="03"/> или <Majax.Node inline formula="PE+N=PEN"/>) проводник. Сопротивление заземляющего устройства, к которому присоединены нейтралигенера-торов 
                 или выводы источников однофазного тока, в любое время года <Majax.Node inline formula="39 "/> должно быть не более <Majax.Node inline formula="2, 4, 8 Ом"/> соответственно 
-                при <Majax.Node inline formula="Uл=660,380,220В"/>. Это сопротивление должно быть обеспечено с учетом использо-вания естественных заземлителей, а также 
-                заземлителей повторных(<Majax.Node inline formula="Rn"/>) заземлений. При этом <Majax.Node inline formula="R0 15,30,60 Ом"/> соответственно 
-                при <Majax.Node inline formula="Uл=660,380,220В"/>.
+                при <Majax.Node inline formula="U_{л}=660,380,220В"/>. Это сопротивление должно быть обеспечено с учетом использо-вания естественных заземлителей, а также 
+                заземлителей повторных(<Majax.Node inline formula="R_{n}"/>) заземлений. При этом <Majax.Node inline formula="R_{0} 15,30,60 Ом"/> соответственно 
+                при <Majax.Node inline formula="U_{л}=660,380,220В"/>.
            </CardText>
            <CardText className="text-center">
                 <br/><img alt="img1" src={img1} /><br/>
@@ -65,7 +65,7 @@ const Theory = () => {
            <CardText className={textStyle}>
                 <br/>
                 Общее сопротивление растеканию тока заземлителей (в том числеестественных) всех повторных заземлений нулевого проводадолжнобыть не более <Majax.Node inline formula="5,10,20 Ом"/> 
-                соответственно при <Majax.Node inline formula="Uл=660,380,220В"/>. При этом <Majax.Node inline formula="R"/> подного повторного заземления должно быть не более <Majax.Node inline formula="15, 30, 60 Ом"/> 
+                соответственно при <Majax.Node inline formula="U_{л}=660,380,220В"/>. При этом <Majax.Node inline formula="R"/> подного повторного заземления должно быть не более <Majax.Node inline formula="15, 30, 60 Ом"/> 
                 соответственно при указанных выше значениях <Majax.Node  inline formula="Uл"/>. Приудельном сопротивлении земли <Majax.Node inline formula="p > 100О м·м"/> допускается увеличитьуказанные нормы в 
                 <Majax.Node inline formula="\frac{p}{100} ≤ 10"/>. раз Величину сопротивления <Majax.Node inline formula="Rр"/> рабочего заземления обычно устанав-ливают 
                 в пределах <Majax.Node inline formula="Rр ≤ 0.05 Rэу"/>. Естественными заземлителями обычно являются размещенные вземле железобетонные конструкции фундамента здания.
@@ -130,7 +130,7 @@ const Theory = () => {
               предпочтительнее аналитиче-ский эквивалент для <Majax.Node inline formula="ηВ, ηГ"/>(при размещении заземлителей по контуру)
            </CardText>
            <CardText className="text-center">
-               <Majax.Node inline formula="η=aexp(−k(N−4)^{0.56})+b"/>
+               <Majax.Node inline formula="η=a*exp(−k(N−4)^{0.56})+b"/>
            </CardText>
            <CardText className={textStyle}>
                 здесь <Majax.Node inline formula="a, b, k=a_{1}+a_{2}x+a_{3}x_{2}"/>
