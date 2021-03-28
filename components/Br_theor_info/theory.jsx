@@ -4,7 +4,7 @@ import img1 from './img/img1.png';
 import img2 from './img/img2.png';
 import img3 from './img/img3.png';
 import img4 from './img/img4.png';
-import {CardText, Row, Col } from 'reactstrap';
+import {CardText, Row, Col, CardBody, Card } from 'reactstrap';
 
 const Theory = () => {
     const textStyle = {
@@ -15,6 +15,8 @@ const Theory = () => {
      <Majax.Provider>
         <Row className="justify-content-center">
           <Col lg="9">
+          <Card className="mt-3">
+          <CardBody >
            <CardText className={textStyle}>
                Для обеспечения электробезопасности установки связи должны вы-полняться в соответствии с <Majax.Node inline formula="[7]"/>
            </CardText>
@@ -42,20 +44,20 @@ const Theory = () => {
            <CardText className={textStyle}>
                <br/>
                При питании электроустановок <Majax.Node inline formula="(Э/У1,Э/У2)"/> от сети с изолирован-ной нейтралью (система <Majax.Node inline formula="IT"/> ) и линейным 
-               напряжением <Majax.Node inline formula="Uл"/> <Majax.Node inline formula="1000"/> В норма сопротивления заземления Rз <Majax.Node inline formula="4Ом"/> при габаритной 
-               мощности <Majax.Node inline formula="P_{Т}"/> трансформатора <Majax.Node inline formula="Т"/>, превышающей <Majax.Node inline formula="P_{Т} 100 кВА"/>, 
-               если <Majax.Node inline formula="P_{Т} 100 кВА"/>, то <Majax.Node inline formula="R_{з} 10Ом"/>. Если <Majax.Node inline formula="U_{л} 1000В"/>, 
-               то <Majax.Node inline formula="\frac{R+{з}≤ 250 }{I_{3} ≥ 0.5} "/>, Ом здесь <Majax.Node inline formula="I_{3}"/> – расчетный ток <Majax.Node inline formula="(А)"/> замыкания фазы на землю.
+               напряжением <Majax.Node inline formula="Uл"/> <Majax.Node inline formula="1000"/> В норма сопротивления заземления  <Majax.Node inline formula="Rз=4Ом"/> при габаритной 
+               мощности <Majax.Node inline formula="P_{Т}"/> трансформатора <Majax.Node inline formula="Т"/>, превышающей <Majax.Node inline formula="P_{Т}=100 кВА"/>, 
+               если <Majax.Node inline formula="P_{Т}=100кВА"/>, то <Majax.Node inline formula="R_{з}=10Ом"/>. Если <Majax.Node inline formula="U_{л}=1000В"/>, 
+               то <Majax.Node inline formula="\frac{R+{з}≤250 }{I_{3}≥0.5} "/>, Ом здесь <Majax.Node inline formula="I_{3}"/> – расчетный ток <Majax.Node inline formula="(А)"/> замыкания фазы на землю.
            </CardText>
            <CardText>
                 <br/>
-                В сетях с заземленной нейтралью (системы  <Majax.Node inline formula="TN-C"/> или  <Majax.Node inline formula="TN-S"/> ) при <Majax.Node inline formula="Uл 1000 В"/> ( <Majax.Node inline formula="рис.5.4"/>), 
+                В сетях с заземленной нейтралью (системы  <Majax.Node inline formula="TN-C"/> или  <Majax.Node inline formula="TN-S"/> ) при <Majax.Node inline formula="Uл=1000 В"/> ( <Majax.Node inline formula="рис.5.4"/>), 
                 для защиты электроустановок от короткого за-мыкания в питающих цепях и замыкания фазного провода на корпус электро установки следует обязательно применять систему зануления,
                 нулевой рабочий ( <Majax.Node inline formula="ОР"/> или <Majax.Node inline formula="N"/>) проводник может быть использован икакнулевой защитный 
                 (<Majax.Node inline formula="03"/> или <Majax.Node inline formula="PE+N=PEN"/>) проводник. Сопротивление заземляющего устройства, к которому присоединены нейтралигенера-торов 
-                или выводы источников однофазного тока, в любое время года <Majax.Node inline formula="39 "/> должно быть не более <Majax.Node inline formula="2, 4, 8 Ом"/> соответственно 
+                или выводы источников однофазного тока, в любое время года <Majax.Node inline formula="39"/> должно быть не более <Majax.Node inline formula="2,4,8"/> <Majax.Node inline formula="Ом"/> соответственно 
                 при <Majax.Node inline formula="U_{л}=660,380,220В"/>. Это сопротивление должно быть обеспечено с учетом использо-вания естественных заземлителей, а также 
-                заземлителей повторных(<Majax.Node inline formula="R_{n}"/>) заземлений. При этом <Majax.Node inline formula="R_{0} 15,30,60 Ом"/> соответственно 
+                заземлителей повторных(<Majax.Node inline formula="R_{n}"/>) заземлений. При этом <Majax.Node inline formula="R_{0}=15,30,60"/> <Majax.Node inline formula="Ом"/> соответственно 
                 при <Majax.Node inline formula="U_{л}=660,380,220В"/>.
            </CardText>
            <CardText className="text-center">
@@ -159,6 +161,8 @@ const Theory = () => {
                <Majax.Node inline formula="Tc=15"/>лет; 
                <Majax.Node inline formula="S,S_{1}"/> – сечение металла соответственно вертикального игоризонтальной электродов, <Majax.Node inline formula="см^2"/>.
            </CardText>
+           </CardBody>
+           </Card>
           </Col>
         </Row>
      </Majax.Provider>

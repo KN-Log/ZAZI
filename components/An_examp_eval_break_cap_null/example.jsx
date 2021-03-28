@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Majax from 'react-mathjax';
 import { changeValue, setRes, mathjaxNode } from './../../common/example';
-import {CardText, Row, Col,Input,FormGroup,Label} from 'reactstrap';
+import {CardText, Row, Col,Input,FormGroup,Label,Card,CardBody} from 'reactstrap';
 
 
 
@@ -12,8 +12,8 @@ const Example= () => {
     const [l, setL] = useState(0)
     const [lInpt, setLInpt] = useState(0)
     
-    const [u, setU] = useState(0)
-    const [uInpt, setUInpt] = useState(0)
+    const [uf, setUf] = useState(0)
+    const [ufInpt, setUfInpt] = useState(0)
    
     const [p_eq, setP_eq] = useState(0)
     const [p_eqInpt, setP_eqInpt] = useState(0)
@@ -23,6 +23,9 @@ const Example= () => {
    
     const [k, setK] = useState(0)
     const [kInpt, setKInpt] = useState(0)
+
+    const [xn_e, setXn_e] = useState(0)
+    const [xn_eInpt, setXn_eInpt] = useState(0)
 
     const [p1, setP1] = useState(0);
     const [In, setIn] = useState(0);
@@ -35,6 +38,11 @@ const Example= () => {
     const [Xn, setXn] = useState(0);
     const [Zn, setZn] = useState(0);
     const [Ikef,setIkef] = useState(0);
+    const [alpha,set_alpha] = useState(0);
+
+    const [Xf,setXf] = useState(0);
+    const [Xnz,setXnz] = useState(0);
+
 
     const textStyle = {
         textIndent: "20px"
@@ -51,20 +59,25 @@ const Example= () => {
     }
 
     const resolve = () => {
-      setP(pInpt)
-      setL(lInpt)
-      setU(uInpt)
-      setP_eq(p_eqInpt)
-      setK(kInpt)
+      setP(pInpt);
+      setL(lInpt);
+      setUf(ufInpt);
+      setP_eq(p_eqInpt);
+      setK(kInpt);
 
+        let res_Xf=0.0152;
+        setXf(setRes(res_Xf,0));
+        let res_Xnz=0.0152;
+        setXnz(setRes(res_Xnz,0));
+        
 
         let res_p1=p/3;
         setP1(setRes(res_p1, 0));
 
-        let res_In = (Math.pow(10, 3)*p1/u);
+        let res_In = (Math.pow(10, 3)*p1/uf);
         setIn(setRes(res_In, 0));
 
-        let res_Ikz = k*In
+        let res_Ikz = k*In;
         setIkz(setRes(res_Ikz, 0));
 
         let res_Sf=In/k;
@@ -79,14 +92,17 @@ const Example= () => {
         let res_Rnz=ro*l/Snz;
         setRnz(setRes(res_Rnz,0));
 
-        //let res_Zt=Aa*a/(p+b);
+        let res_alpha=Math.pow((uf/230),2);
+        set_alpha(setRes(res_alpha),0);
+       
+        //let res_Zt=a*alpha/(p+b);
         //setZt(setRes(res_Zt),0);
 
-        //let res_Xn=Xn_e*l*Math.pow(10,-3);
-        //setXn(setRes(res_Xn),0);
+        let res_Xn=xn_e*l*Math.pow(10,-3);
+        setXn(setRes(res_Xn),0);
         
-        //let res_Zn=Math.sqrt(Math.pow((Rf+Rnz),2)+Math.pow((Xf+Xnz+Xp),2))
-       // setZn(setRes(res_Zn),0)
+        let res_Zn=Math.sqrt(Math.pow((Rf+Rnz),2)+Math.pow((Xf+Xnz+Xn),2));
+        setZn(setRes(res_Zn),0);
 
        // let res_Ikef=Uf/(Zt/3+Zp)
        // setIkef(setRes(res_Ikef),0)
@@ -102,6 +118,8 @@ const Example= () => {
         <Majax.Provider>
         <Row className="justify-content-center">
         <Col lg="9">
+        <Card className="mt-3">
+        <CardBody >
            <CardText className={textStyle}>
             <br/>Исходные данные
             <br/>1. Габаритная мощность <Majax.Node inline formula="P_{Г}= "/> <Input style={inputStyle}/> <Majax.Node inline formula="кВА"/>
@@ -189,8 +207,10 @@ const Example= () => {
             <Majax.Node inline formula="I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = 380/(2.81/3 + 3.90) = 78.58A"/>
             </CardText>
             <CardText>
-            12. <Majax.Node inline formula="I_{кэф} I_{кз}→Расчет окончен"/>
+            12. <Majax.Node inline formula="I_{кэф} > I_{кз}→"/> Расчет окончен
             </CardText>
+        </CardBody>
+        </Card>
         </Col>
         </Row>
         </Majax.Provider>
