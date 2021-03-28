@@ -1,6 +1,6 @@
 import React from 'react';
 import Majax from 'react-mathjax';
-import { Card, CardBody, CardText, Row, CardTitle, Col } from 'reactstrap';
+import { Card, CardBody, CardText, Row, Col } from 'reactstrap';
 
 const Theory = () => {
     const textStyle = {
