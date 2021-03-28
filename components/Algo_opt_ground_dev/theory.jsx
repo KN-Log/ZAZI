@@ -38,17 +38,29 @@ const Theory = () => {
                                 7. Если заземление защитное, то <Majax.Node inline formula="S_{1}=1см^{2},S=5см^{2}" />, переходим кшагу <Majax.Node inline formula="12"/>. Если заземление – рабочее, то переходим к шагу <Majax.Node inline formula="8"/>.
                             </CardText>
                             <CardText>
-                                8. По <Majax.Node inline formula="(5.7)"/> вычисляем сечения горизонтального <Majax.Node inline formula="S_{1}"/> и вертикальногоSэлектродов. Объём металла, составляющего конструкцию заземления, равен <Majax.Node inline formula="V_{∗}=SLN+S_{1}L_{1}(N−1)"/>.
+                                8. По <Majax.Node inline formula="(5.7)"/> вычисляем сечения горизонтального <Majax.Node inline formula="S_{1}"/> и вертикальногоSэлектродов. Объём металла, составляющего конструкцию заземления, равен:
+                            </CardText>
+                            <CardText className="text-center">  
+                                <Majax.Node inline formula="V_{∗}=SLN+S_{1}L_{1}(N−1)"/>.
                             </CardText>
                             <CardText>
                                 9. Если <Majax.Node inline formula="V_{∗}<V" />, то <Majax.Node inline formula="V=V_{∗}" />.
                             </CardText>
                             <CardText>
-                                10. Положим <Majax.Node inline formula="L=L+∆" />, <Majax.Node inline formula="L_{1}=L_{1}+∆" />, <Majax.Node inline formula="F=F+∆,∆≤0.01L" />.
+                                10. Положим:
                             </CardText>
-                            <CardTitle>
-                                11. Проверим условия: <Majax.Node inline formula="L≤L_{макс}, L_{1}≤L_{1 макс}, F≤F_{макс}" />. Выполнение этих условий (хотя бы одного) переводит вычисленияна шаг <Majax.Node inline formula="3" />.
-                            </CardTitle>
+                            <CardText className="text-center">  
+                                <Majax.Node inline formula="L=L+∆" />, <Majax.Node inline formula="L_{1}=L_{1}+∆" />, <Majax.Node inline formula="F=F+∆,∆≤0.01L" />.
+                            </CardText>
+                            <CardText>
+                                11. Проверим условия:
+                            </CardText>
+                            <CardText className="text-center">
+                            <Majax.Node inline formula="L≤L_{макс}, L_{1}≤L_{1 макс}, F≤F_{макс}" />
+                            </CardText>
+                            <CardText>
+                                Выполнение этих условий (хотя бы одного) переводит вычисленияна шаг <Majax.Node inline formula="3" />.
+                            </CardText>
                             <CardText>
                                 12. Окончание расчётов.
                             </CardText>

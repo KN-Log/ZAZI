@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Majax from 'react-mathjax';
 import { changeValue, setRes, mathjaxNode } from './../../common/example';
-import {CardText, Row, Col,Input,FormGroup,Label,Card,CardBody} from 'reactstrap';
+import {CardText, Row, Col,Input,FormGroup,Label,Card,CardBody,Button} from 'reactstrap';
 
 
 
@@ -57,7 +57,7 @@ const Example= () => {
         display:"inline",
     };
     const selectStyle={
-        width:"280px",
+        width:"180px",
         height:"35px",
         display:"inline",
     }
@@ -107,7 +107,7 @@ const Example= () => {
         let res_alpha=Math.pow((uf/230),2);
         set_alpha(setRes(res_alpha),0);
        
-        let res_Zt=a*alpha/(p+b);
+        let res_Zt=parseFloat(a)*alpha/(p+parseFloat(b));
         setZt(setRes(res_Zt),0);
 
         let res_Xn=xn_e*l*Math.pow(10,-3);
@@ -154,78 +154,79 @@ const Example= () => {
             <br/>7. Материал провода: <Majax.Node inline formula="ρ="/> <Input style={inputStyle}/> <Majax.Node inline formula="кг/м^{3}"/>
             <br/>8. Допустимая плотность тока: <Majax.Node inline formula="K_{г}="/> <Input style={inputStyle}/> <Majax.Node inline formula="А/мм^{2}"/>
             </CardText>
-
-
             <CardText>
-                Расчет
+                <Button onClick={resolve}>Рассчитать</Button>
+            </CardText>
+            <CardText>
+                Расчет:
             </CardText>
             <CardText>
             1. Габаритная мощность на одну фазу:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
                 <Majax.Node inline formula="P_{1}=P_{Г}/3 = 22/3 = 7.33кВ·A"/>
             </CardText>
             <CardText>
             2. Номинальный ток нагрузки на одну фазу:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="I_{н}=P_{1}/U_{ф}= 1·10^{3}·7.33/380 = 19.30A"/>
             </CardText>
             <CardText>
             3. Минимальное требующееся значение тока:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="I_{кз}≥k·I_{н}= 1.4·19.30 = 27.02A"/>
             </CardText>
             <CardText>
             4. Требующееся значение сечения фазного провода:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="S_{ф}=I_{н}/K_{г}= 19.30/1.50 = 12.87мм^{2}"/>
             </CardText>
             <CardText>
             5. Требующееся значение сечения нулевого защитного провода:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="S_{нз}=S_{ф}/2 = 12.87/2 = 6.43мм^{2}"/>
             </CardText>
             <CardText>
             6. Активное сопротивление фазного провода:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="R_{ф}=ρ·l/S_{ф}= 10^{6}·1.75·10^{−8}·950/12.87 = 1.29 Ом"/>
             </CardText>
             <CardText>
             7. Активное сопротивление нулевого защитного провода:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="R_{нз}=ρ·l/S_{нз}= 10^{6}·1.75·10^{−8}·950/6.43 = 2.58 Ом"/>
             </CardText>
             <CardText>
             8. Вычислим значение  <Majax.Node inline formula="Z_{Т}"/>:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="Z_{Т}=A·α/(P_{Г}+B) = 22.54·2.73/(22−0.1176) = 2.81 Ом"/>
             </CardText>
             <CardText>
             9. Вычислим значение  <Majax.Node inline formula="X_{п}"/>:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="X_{п}=X^{′}_{п}·l·1·10^{−3}=0.4·950·1·10^{−3}=3.80·10^{−1}Ом/км"/>
             </CardText>
             <CardText>
             10. Вычислим значение <Majax.Node inline formula="Z_{п}"/>:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="Z_{п}=\sqrt{(R_{ф}+R_{нз})^{2}+(X_{ф}+X_{нз}+X_{п})^{2}}=\sqrt{(1.29 + 2.58)^{2}+(1.52·10−2+1.52·10−2+3.80·10−1)^{2}}=3.90Ом"/>
             </CardText>
             <CardText>
             11. Вычислим <Majax.Node inline formula="I_{кэф}"/>:
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             <Majax.Node inline formula="I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = 380/(2.81/3 + 3.90) = 78.58A"/>
             </CardText>
-            <CardText>
+            <CardText className="text-center">
             12. <Majax.Node inline formula="I_{кэф} > I_{кз}→"/> Расчет окончен
             </CardText>
         </CardBody>

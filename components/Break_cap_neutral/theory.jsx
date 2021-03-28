@@ -17,19 +17,19 @@ const Theory = () => {
                             <CardText className={textStyle}>
                                 При коротком замыкании (КЗ) в цепи "фаза-нуль" сила тока составит:
                             </CardText>
-                            <CardText className={textStyle}>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="I_{кз}=\frac{U_{ф}}{Z_{Т}/3+Z_{ф}+Z_{нз}+jX_{п}}" />
                             </CardText>
                             <CardText className={textStyle}>
                                 где <Majax.Node inline formula="Z_{Т}" /> – полное внутреннее сопротивление трансформатора-источника питающего тока;
                             </CardText>
-                            <CardText className={textStyle}>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="Z_{ф}=R_{ф}+jX_{ф}" />
                             </CardText>
                             <CardText className={textStyle}>
                                 – полное сопротивление фазного провода;
                             </CardText>
-                            <CardText className={textStyle}>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="Z_{нз}=R_{нз}+jX_{нз}" />
                             </CardText>
                             <CardText className={textStyle}>
@@ -41,25 +41,25 @@ const Theory = () => {
                             <CardText className={textStyle}>
                                 При <Majax.Node inline formula="5 " />%-ом ужесточении требований к системе зануления вместо <Majax.Node inline formula="(5.8)" /> пишем для модуля <Majax.Node inline formula="I_{кз}" />.
                             </CardText>
-                            <CardText className={textStyle}>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="I_{кз}=U_{ф}/(Z_{Т}/3 +Z_{п})" />
                             </CardText>
                             <CardText className={textStyle}>
                                 где:
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="Z_{п}=\sqrt{{(R_{ф}+R_{нз})2+(X_{ф}+X_{нз}+X_{п})2}}" />
                             </CardText>
                             <CardText>
-                                <Majax.Node inline formula="Активное сопротивление R_{ф}, R_{нз}" />
+                                Активное сопротивление <Majax.Node inline formula="R_{ф}, R_{нз}" />
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="R_{ф}, R_{нз}=\sum_{i=1}^{n}=1ρ_{i}·l_{i}/s_{i}" />
                             </CardText>
                             <CardText>
                                 где  <Majax.Node inline formula="n" />– число участков сети, образующих цепь "фаза-нуль"  <Majax.Node inline formula="ρ_{i}, S_{i}, l_{i}" />–соответственно удельное сопротивление материала провода <Majax.Node inline formula="i" />-гo участка, его сечение и длина. Значения <Majax.Node inline formula="Z_{Т}" />в справочной литературе <Majax.Node inline formula="[1]" /> даются в табличном виде,но хорошо представимы соотношением (для напряжения первичнойцепи силового трансформатора <Majax.Node inline formula="< 15 кВ" /> и мощности <Majax.Node inline formula="P_{Г}>1кВА" />)
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="Z_{T}=Aα/(P_{Г}+B)[Ом]" /> <Majax.Node inline formula="(5.11)" />
                             </CardText>
                             <CardText>
@@ -68,23 +68,26 @@ const Theory = () => {
                             <CardText>
                                 а) для схемы трансформатора звезда-звезда <Majax.Node inline formula="(Y/Y)" />:
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="A=77.95Ом·кВА,   B=0.0648 кВА" />;
                             </CardText>
                             <CardText>
                                 б) для схемы трансформатора "треугольник-звезда" <Majax.Node inline formula="(∆/Y)" />:
                             </CardText>
-                            <CardText>
-                                <Majax.Node inline formula="A= 22.54Ом·кВА,   B=−0.1176кВА" />;
+                            <CardText className="text-center">
+                                <Majax.Node inline formula="A=22.54Ом·кВА,  B=−0.1176кВА" />;
                             </CardText>
                             <CardText>
                                 Для обеих схем  <Majax.Node inline formula="α=(Uф/230)^{2}" />. С целью минимизации значения <Majax.Node inline formula="X_{п}" /> нулевые защитные проводники следует прокладывать совместнофазными или в непосредственной близости от них. При этом <Majax.Node inline formula="X_{п}"/> вычисляется по формуле:
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula=" X_{п}=X^{′}_{п}·l·10^{−3}" />, <Majax.Node inline formula="(5.12)" />
                             </CardText>
                             <CardText>
-                                где <Majax.Node inline formula="l" />– длина сети в метрах, <Majax.Node inline formula="X^{′}_{п}=~\mathrm{
+                                где <Majax.Node inline formula="l" />– длина сети в метрах, 
+                            </CardText>
+                            <CardText className="text-center">
+                                <Majax.Node inline formula="X^{′}_{п}=~\mathrm{
                                                 \Bigg\{ \begin{matrix}
                                                 \mbox{0.4Ом/км} - для&воздушной&линии\\
                                                 \mbox{0.07Ом/км} - для&кабельных&линий\\
@@ -97,10 +100,10 @@ const Theory = () => {
                                 – для медного или алюминиевого провода.
                                 Для проведения расчётов при использовании стальных проводников, питающих электрическую цепь, следует воспользоваться данными таблицы <Majax.Node inline formula="5.2" /> Таблица
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="5.2" /> .Электрические характеристики стальных проводников
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <br /><img alt="img1" src={img1} /><br />
                             </CardText>
                             <CardText>
@@ -112,7 +115,7 @@ const Theory = () => {
                             <CardText>
                                 б) Сопротивления <Majax.Node inline formula="(R, X)" /> проводника длиной <Majax.Node inline formula="l" /> метров определяются соотношением
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="Z=Z_{1}·l·10^{−3} Ом" />,   <Majax.Node inline formula="Z≡R,X" />.
                             </CardText>
                             <CardText>
@@ -130,13 +133,13 @@ const Theory = () => {
                             <CardText>
                                 4. Минимальное требующееся значение тока <Majax.Node inline formula="I_{кз}" />:
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="I_{кз}≤kI_{н}" />,
                             </CardText>
                             <CardText>
                                 где
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="k=~\mathrm{
                                                 \Bigg\{ \begin{matrix}
                                                 \mbox{3 -для плавкой вставки} \\
@@ -147,13 +150,16 @@ const Theory = () => {
                             <CardText>
                                 5. Требующееся сечение фазного провода
                             </CardText>
+                            <CardText className="text-center">
+                                <Majax.Node inline formula="S_{ф}=I_{н}/K_{г},мм^{2}" /> 
+                            </CardText>
                             <CardText>
-                                <Majax.Node inline formula="S_{ф}=I_{н}/K_{г},мм^{2}" /> где <Majax.Node inline formula="K_{г}= 2А/мм^{2}" />– допустимая плотность тока в фазном (а также и <Majax.Node inline formula="N" />) проводе.
+                                где <Majax.Node inline formula="K_{г}= 2А/мм^{2}" />– допустимая плотность тока в фазном (а также и <Majax.Node inline formula="N" />) проводе.
                             </CardText>
                             <CardText>
                                 6. Требующееся сечение нулевого защитного провода
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="S_{нз}≥\frac{1}{2}S_{ф}" />
                             </CardText>
                             <CardText>
@@ -162,7 +168,7 @@ const Theory = () => {
                             <CardText>
                                 8. Оценим фактическое значение <Majax.Node inline formula="I_{кэ}" />фтока короткого замыкания по <Majax.Node inline formula="(5.9)" /> с учетом соотношений <Majax.Node inline formula="(5.10)" />,<Majax.Node inline formula="(5.12)" />:
                             </CardText>
-                            <CardText>
+                            <CardText className="text-center">
                                 <Majax.Node inline formula="I_{кэф}=U_{ф}/(Z_{Т}/3 +Z_{п})" />
                             </CardText>
                             <CardText>

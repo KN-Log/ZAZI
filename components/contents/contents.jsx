@@ -22,9 +22,6 @@ const Contents = () => {
                             <ListGroupItem>
                                 <NavLink to="/an_examp_eval_break_cap_null">4 - Пример оценки отключающей способности зануления</NavLink>
                             </ListGroupItem>
-                            <ListGroupItem>
-                                <NavLink to="#">Задачи</NavLink>
-                            </ListGroupItem>
                         </ListGroup>
                     </CardBody>
                 </Card>
