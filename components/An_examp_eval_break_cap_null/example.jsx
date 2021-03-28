@@ -44,6 +44,10 @@ const Example= () => {
     const [Xnz,setXnz] = useState(0);
 
 
+
+    const [a,setALine ]=useState(0);
+    const [b,setBLine ]=useState(0);
+
     const textStyle = {
         textIndent: "20px"
     };
@@ -58,12 +62,20 @@ const Example= () => {
         display:"inline",
     }
 
+
     const resolve = () => {
       setP(pInpt);
       setL(lInpt);
+      
       setUf(ufInpt);
       setP_eq(p_eqInpt);
+     
+      setXn_e(xn_eInpt);
+      setRo(roInpt);
       setK(kInpt);
+
+      
+
 
         let res_Xf=0.0152;
         setXf(setRes(res_Xf,0));
@@ -86,17 +98,17 @@ const Example= () => {
         let res_Snz=Sf/2;
         setSnz(setRes(res_Snz, 0));
 
-        let res_Rf=ro*l/Sf;
+        let res_Rf=Math.pow(10,6)*Math.pow(10,-8)*ro*l/Sf;
         setRf(setRes(res_Rf,0));
 
-        let res_Rnz=ro*l/Snz;
+        let res_Rnz=Math.pow(10,6)*ro*Math.pow(10,-8)*l/Snz;
         setRnz(setRes(res_Rnz,0));
 
         let res_alpha=Math.pow((uf/230),2);
         set_alpha(setRes(res_alpha),0);
        
-        //let res_Zt=a*alpha/(p+b);
-        //setZt(setRes(res_Zt),0);
+        let res_Zt=a*alpha/(p+b);
+        setZt(setRes(res_Zt),0);
 
         let res_Xn=xn_e*l*Math.pow(10,-3);
         setXn(setRes(res_Xn),0);
@@ -104,8 +116,8 @@ const Example= () => {
         let res_Zn=Math.sqrt(Math.pow((Rf+Rnz),2)+Math.pow((Xf+Xnz+Xn),2));
         setZn(setRes(res_Zn),0);
 
-       // let res_Ikef=Uf/(Zt/3+Zp)
-       // setIkef(setRes(res_Ikef),0)
+        let res_Ikef=uf/(Zt/3+Zn)
+        setIkef(setRes(res_Ikef),0)
 
         if(Ikef>Ikz){
             return true;
@@ -126,9 +138,16 @@ const Example= () => {
             <br/>2. Длина сети: <Majax.Node inline formula="l="/>  <Input style={inputStyle}/> <Majax.Node inline formula="м"/>
             <br/>3. Фазное напряжение <Majax.Node inline formula="U_{ф}="/> <Input style={inputStyle}/> <Majax.Node inline formula="В"/>
             <br/>4. Схема соединения: 
-                <Input type="select" style={selectStyle}>
-                    <option>воздушная линии</option>
-                    <option>кабельная линия</option>
+                <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
+                    const select_a=e.target.value1;
+                    const select_b=e.target.value2;
+                    setALine(select_a);
+                    setBLine(select_b);
+                }}>
+                   
+                    <option value1="77.95" value2="0.0648">воздушная линии</option>
+                    <option value1="22.54" value2="-0.1176">кабельная линия</option>
+                   
                 </Input>
             <br/>5. Вид защиты: автомат защиты при <Majax.Node inline formula="P_{Г}<"/> <Input style={inputStyle}/> <Majax.Node inline formula="кВА"/>
             <br/>6. Тип линии: <Majax.Node inline formula="X_{п}^{'}="/> <Input style={inputStyle}/> <Majax.Node inline formula="Ом/км"/>
