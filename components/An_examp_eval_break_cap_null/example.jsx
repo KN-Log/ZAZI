@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Majax from 'react-mathjax';
-import {changeValue, setRes, mathjaxNode, containsErrorValue, setErrorValue } from './../../common/example';
-import {CardText, Row, Col,Input,FormGroup,Label,Card,CardBody,Button,Alert} from 'reactstrap';
+import {changeValue,containsErrorValue, setErrorValue } from './../../common/example';
+import {CardText, Row, Col,Input,Card,CardBody,Button,Alert} from 'reactstrap';
 
 
 
@@ -37,13 +37,9 @@ const Example=()=> {
     //Kг
     const [k_g, setK_g] = useState(0);
     const [k_gInpt, setK_gInpt] = useState(0);
-    
+    //New value 
     const [p1, setP1] = useState(0);
-    const [p1Input, setP1_Input] = useState(0);
-    
-    
     const [Xf,setXf] = useState(0);
-    /*
     const [In, setIn] = useState(0);
     const [Ikz, setIkz] = useState(0);
     const [Sf, setSf] = useState(0);
@@ -55,9 +51,7 @@ const Example=()=> {
     const [Zn, setZn] = useState(0);
     const [Ikef,setIkef] = useState(0);
     const [alpha,set_alpha] = useState(0);
-
-    
-    const [Xnz,setXnz] = useState(0);*/
+    const [Xnz,setXnz] = useState(0);
 
     const textStyle = {
         textIndent: "20px"
@@ -83,62 +77,71 @@ const Example=()=> {
         setUf(ufInpt);
         setP_g_eq(p_g_eqInpt); 
         setAConnect(aInput);
-        setBConnect(bInput)
+        setBConnect(bInput);
         setRo(roInpt);
         setK_g(k_gInpt);
         setLineXn_e(xn_eInpt)
-        // xn_eInpt(setLineXn_e);
-        // setXn_e(xn_eInpt);
 
         let res_p1=p_gInpt/3;
-        setP1(setP1_Input(res_p1, 0));
+        setP1(res_p1.toFixed(2));
 
 
-        /*{
+        {
             let res_Xf=0.0152;
-            setXf(setRes(res_Xf,0));
+            setXf(res_Xf.toFixed(2));
             let res_Xnz=0.0152;
-            setXnz(setRes(res_Xnz,0));  
-        }*/
+            setXnz(res_Xnz.toFixed(2));  
+        }
 
-        /*let res_In = (Math.pow(10, 3)*p1/uf);
-        setIn(setRes(res_In, 0));
+        let res_In = (Math.pow(10, 3)*p1/uf);
+        setIn(res_In.toFixed(2));
 
         let res_Ikz = k_g*In;
-        setIkz(setRes(res_Ikz, 0));
+        setIkz(res_Ikz.toFixed(2));
 
         let res_Sf=In/k_g;
-        setSf(setRes(res_Sf, 0));
+        setSf(res_Sf.toFixed(2));
 
         let res_Snz=Sf/2;
-        setSnz(setRes(res_Snz, 0));
+        setSnz(res_Snz.toFixed(2));
 
         let res_Rf=Math.pow(10,6)*Math.pow(10,-8)*ro*l/Sf;
-        setRf(setRes(res_Rf,0));
+        setRf(res_Rf.toFixed(2));
 
         let res_Rnz=Math.pow(10,6)*ro*Math.pow(10,-8)*l/Snz;
-        setRnz(setRes(res_Rnz,0));
+        setRnz(res_Rnz.toFixed(2));
 
         let res_alpha=Math.pow((uf/230),2);
-        set_alpha(setRes(res_alpha),0);
+        set_alpha(res_alpha.toFixed(2));
        
         let res_Zt=a*alpha/(p_g+b);
-        setZt(setRes(res_Zt,0));
+        setZt(res_Zt.toFixed(2));
 
         let res_Xn=xn_e*l*Math.pow(10,-3);
-        setXn(setRes(res_Xn),0);
+        setXn(res_Xn.toFixed(2));
         
         let res_Zn=Math.sqrt(Math.pow((Rf+Rnz),2)+Math.pow((Xf+Xnz+Xn),2));
-        setZn(setRes(res_Zn),0);*/
+        setZn(res_Zn.toFixed(2));
 
-        //let res_Ikef=uf/(Zt/3+Zn);
-        //setIkef(setRes(res_Ikef),0);
-        console.log(p_gInpt,lInpt,ufInpt,aInput,p_g_eqInpt,xn_eInpt);
-        /*if(containsErrorValue(res_Ikef)){
+        let res_Ikef=uf/(Zt/3+Zn);
+        setIkef(res_Ikef.toFixed(2));
+       
+        
+        console.log(
+            "PГ:",p_gInpt,
+            "L:",lInpt,
+            "Uф",ufInpt,
+            "a",aInput,
+            "b",bInput,
+            "PГ",p_g_eq, 
+            "ro",ro,
+            "k_g",k_g);
+        
+        if(containsErrorValue(res_Ikef)){
             setIsError(true);
             setErrorValue(res_Ikef);
             return;
-        }*/
+        }
         
 
 
@@ -187,13 +190,13 @@ const Example=()=> {
             1. Габаритная мощность на одну фазу:
             </CardText>
             <CardText className="text-center">
-                <Majax.Node inline formula="P_{1}=P_{Г}/3 = 22/3 = 7.33кВ·A"/>
+                <Majax.Node inline formula={`P_{1}=P_{Г}/3 = ${p_g}/3 = ${p1}кВ·A`} />
             </CardText>
             <CardText>
             2. Номинальный ток нагрузки на одну фазу:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="I_{н}=P_{1}/U_{ф}= 1·10^{3}·7.33/380 = 19.30A"/>
+            <Majax.Node inline formula={`I_{н}=P_{1}/U_{ф}= 1·10^{3}·${p1}/${uf} = ${In}A`}/>
             </CardText>
             <CardText>
             3. Минимальное требующееся значение тока:
@@ -205,25 +208,25 @@ const Example=()=> {
             4. Требующееся значение сечения фазного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="S_{ф}=I_{н}/K_{г}= 19.30/1.50 = 12.87мм^{2}"/>
+            <Majax.Node inline formula={`S_{ф}=I_{н}/K_{г}= ${In}/${k_g} = ${Sf}мм^{2}`}/>
             </CardText>
             <CardText>
             5. Требующееся значение сечения нулевого защитного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="S_{нз}=S_{ф}/2 = 12.87/2 = 6.43мм^{2}"/>
+            <Majax.Node inline formula={`S_{нз}=S_{ф}/2 = ${Sf}/2 = ${Snz}мм^{2}`}/>
             </CardText>
             <CardText>
             6. Активное сопротивление фазного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="R_{ф}=ρ·l/S_{ф}= 10^{6}·1.75·10^{−8}·950/12.87 = 1.29 Ом"/>
+            <Majax.Node inline formula={`R_{ф}=ρ·l/S_{ф}= 10^{6}·${ro}·10^{−8}·${l}/${Sf} = ${Rf}Ом`}/>
             </CardText>
             <CardText>
             7. Активное сопротивление нулевого защитного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="R_{нз}=ρ·l/S_{нз}= 10^{6}·1.75·10^{−8}·950/6.43 = 2.58 Ом"/>
+            <Majax.Node inline formula={`R_{нз}=ρ·l/S_{нз}= 10^{6}·${ro}·10^{−8}·${l}/${Snz}= ${Rnz}Ом`}/>
             </CardText>
             <CardText>
             8. Вычислим значение  <Majax.Node inline formula="Z_{Т}"/>:
