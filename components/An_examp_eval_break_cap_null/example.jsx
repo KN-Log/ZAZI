@@ -9,6 +9,7 @@ const Example=()=> {
 
     
     const [isError, setIsError] = useState(false);
+    const [isLogicError, setIsLogicError] = useState(false);
     //PГ
     const [p_g, setP_g] = useState(0);
     const [p_gInpt, setP_gInpt] = useState(0);
@@ -37,7 +38,12 @@ const Example=()=> {
     //Kг
     const [k_g, setK_g] = useState(0);
     const [k_gInpt, setK_gInpt] = useState(0);
+
+
     //New value 
+    const [alpha,set_alpha] = useState(0);
+    const [Xnz,setXnz] = useState(0);
+    const [k,setK] = useState(0);
     const [p1, setP1] = useState(0);
     const [Xf,setXf] = useState(0);
     const [In, setIn] = useState(0);
@@ -50,8 +56,7 @@ const Example=()=> {
     const [Xn, setXn] = useState(0);
     const [Zn, setZn] = useState(0);
     const [Ikef,setIkef] = useState(0);
-    const [alpha,set_alpha] = useState(0);
-    const [Xnz,setXnz] = useState(0);
+    
 
     const textStyle = {
         textIndent: "20px"
@@ -62,8 +67,8 @@ const Example=()=> {
         display:"inline",
     };
     const selectStyle={
-        width:"200px",
-        height:"35px",
+        width:"350px",
+        height:"30px",
         display:"inline",
     }
 
@@ -80,10 +85,9 @@ const Example=()=> {
         setBConnect(bInput);
         setRo(roInpt);
         setK_g(k_gInpt);
-        setLineXn_e(xn_eInpt)
+        setLineXn_e(parseFloat(xn_eInpt))
 
-        let res_p1=p_gInpt/3;
-        setP1(res_p1.toFixed(2));
+        
 
 
         {
@@ -93,10 +97,28 @@ const Example=()=> {
             setXnz(res_Xnz.toFixed(2));  
         }
 
+
+        switch(p_g_eq){
+            case 1:
+            setK(3);
+            break;
+            case 2:
+            setK(1.4.toFixed(2));
+            break;
+            case 3:
+            setK(1.25.toFixed(2));
+            break;
+            default:
+            setK(1.4.toFixed(2));
+            break;
+        }
+        let res_p1=p_gInpt/3;
+        setP1(res_p1.toFixed(2));
+        
         let res_In = (Math.pow(10, 3)*p1/uf);
         setIn(res_In.toFixed(2));
 
-        let res_Ikz = k_g*In;
+        let res_Ikz = k*In;
         setIkz(res_Ikz.toFixed(2));
 
         let res_Sf=In/k_g;
@@ -126,8 +148,13 @@ const Example=()=> {
         let res_Ikef=uf/(Zt/3+Zn);
         setIkef(res_Ikef.toFixed(2));
        
+        if(Ikef > Ikz){
+            setIsLogicError(false);
+        }else{
+            setIsLogicError(true);
+        }
         
-        console.log(
+        /*console.log(
             "PГ:",p_gInpt,
             "L:",lInpt,
             "Uф",ufInpt,
@@ -135,7 +162,8 @@ const Example=()=> {
             "b",bInput,
             "PГ",p_g_eq, 
             "ro",ro,
-            "k_g",k_g);
+            "k_g",k,
+            "Ikef",Ikef);*/
         
         if(containsErrorValue(res_Ikef)){
             setIsError(true);
@@ -163,16 +191,24 @@ const Example=()=> {
                 <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
                     const select_a=e.target.value1;
                     const select_b=e.target.value2;
-                    setAInput(changeValue(select_a));
-                    setBInput(changeValue(select_b));
+                    setAInput(parseFloat(select_a).toFixed(2));
+                    setBInput(parseFloat(select_b).toFixed(4));
                 }}>                
                     <option value1="77.95" value2="0.0648">треугольник-звезда</option>
                     <option value1="22.54" value2="-0.1176">звезда-звезда</option>   
                 </Input>
-            <br/>5. Вид защиты: автомат защиты при <Majax.Node inline formula="P_{Г}<"/> <Input style={inputStyle} onChange={e=>setP_g_eqInpt(changeValue(e))}/> <Majax.Node inline formula="кВА"/>
+            <br/>5. Вид защиты:
+                <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
+                    const select_plav=e.target.value;
+                    setP_g_eqInpt(parseInt(select_plav));
+                }}>                
+                    <option value="1">для плавкой вставки </option>
+                    <option value="2">для автомата защиты при  P {'<'} 100 </option>
+                    <option value="3">для автомата защиты при P {'≥'} 100 </option>    
+                </Input> 
             <br/>6. Тип линии: <Input Input className="custom-select" type="select" style={selectStyle} nChange={(e)=>{
                     const select_line=e.target.value
-                    setXn_eInpt(changeValue(select_line));
+                    setXn_eInpt(parseFloat(select_line).toFixed(2));
                 }}>
                     <option value="0.4">воздушная линии</option>
                     <option value="0.07">кабельная линия</option>
@@ -202,7 +238,7 @@ const Example=()=> {
             3. Минимальное требующееся значение тока:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="I_{кз}≥k·I_{н}= 1.4·19.30 = 27.02A"/>
+            <Majax.Node inline formula={`I_{кз}≥k·I_{н}= ${k}·${In} = ${Ikz}A`}/>
             </CardText>
             <CardText>
             4. Требующееся значение сечения фазного провода:
@@ -232,13 +268,13 @@ const Example=()=> {
             8. Вычислим значение  <Majax.Node inline formula="Z_{Т}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="Z_{Т}=A·α/(P_{Г}+B) = 22.54·2.73/(22−0.1176) = 2.81 Ом"/>
+            <Majax.Node inline formula={`Z_{Т}=A·α/(P_{Г}+B) = ${a}·${alpha}/(${p_g}−${b}) = 2.81 Ом`}/>
             </CardText>
             <CardText>
             9. Вычислим значение  <Majax.Node inline formula="X_{п}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="X_{п}=X^{′}_{п}·l·1·10^{−3}=0.4·950·1·10^{−3}=3.80·10^{−1}Ом/км"/>
+            <Majax.Node inline formula={`X_{п}=X^{′}_{п}·l·1·10^{−3}=${xn_e}·${l}·1·10^{−3}=3.80·10^{−1}Ом/км`}/>
             </CardText>
             <CardText>
             10. Вычислим значение <Majax.Node inline formula="Z_{п}"/>:
@@ -250,14 +286,18 @@ const Example=()=> {
             11. Вычислим <Majax.Node inline formula="I_{кэф}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = 380/(2.81/3 + 3.90) = 78.58A"/>
+            <Majax.Node inline formula={`I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = ${uf}/(${Zt}/3 + ${Zn}) = 78.58A`}/>
             </CardText>
             <CardText>
-            12. <Majax.Node inline formula="I_{кэф} > I_{кз}→"/> Расчет окончен
+            12.  <Majax.Node inline formula="I_{кэф} > I_{кз} →"/> Расчет окончен
+            </CardText>
+            <CardText className="text-center">
+                <Majax.Node inline formula={`${Ikef} > ${Ikz}`}/> 
+                <Alert className="mt-3" color="danger" isOpen={isLogicError}>Условие не выполнено</Alert>
             </CardText>
             <CardText>
                 <Alert className="mt-3" color="danger" isOpen={isError}>Невозможно посчитать</Alert>
-                <Majax.Node inline formula={`${Xf}`}/>
+                <Majax.Node inline formula={`${Ikef}`}/>
             </CardText>
         </CardBody>
         </Card>
