@@ -20,12 +20,13 @@ const Example=()=> {
     const [uf, setUf] = useState(0);
     const [ufInpt, setUfInpt] = useState(0);
     //Схема соединения
+    //A,B
+    const [ab,setABConnect]=useState(0);
+    const [abInput, setABInput]=useState(0);
     //A
     const [a,setAConnect]=useState(0);
-    const [aInput, setAInput]=useState(0);
     //B
     const [b,setBConnect]=useState(0);
-    const [bInput, setBInput] = useState(0);
     //PГ<
     const [p_g_eq, setP_g_eq] = useState(0);
     const [p_g_eqInpt, setP_g_eqInpt] = useState(0);
@@ -81,23 +82,22 @@ const Example=()=> {
         setL(lInpt);
         setUf(ufInpt);
         setP_g_eq(p_g_eqInpt); 
-        setAConnect(aInput);
-        setBConnect(bInput);
+        setABConnect(abInput);
         setRo(roInpt);
         setK_g(k_gInpt);
-        setLineXn_e(parseFloat(xn_eInpt))
-
-        
+        setLineXn_e((xn_eInpt));
 
 
         {
             let res_Xf=0.0152;
-            setXf(res_Xf.toFixed(2));
+            setXf(res_Xf.toFixed(4));
             let res_Xnz=0.0152;
-            setXnz(res_Xnz.toFixed(2));  
+            setXnz(res_Xnz.toFixed(4));  
         }
 
 
+
+        
         switch(p_g_eq){
             case 1:
             setK(3);
@@ -112,6 +112,28 @@ const Example=()=> {
             setK(1.4.toFixed(2));
             break;
         }
+        
+        let res_a,res_b;
+        
+        switch(ab){
+            case 1:
+                res_a=22.54;
+                res_b=-0.1176;
+                setAConnect(res_a.toFixed(2));
+                setBConnect(res_b.toFixed(4));
+            break;
+            case 2:
+                res_a=77.95;
+                res_b=0.0648;
+                setAConnect(res_a.toFixed(2));
+                setBConnect(res_b.toFixed(4));
+            break;
+            default:
+                break;
+        }
+
+        
+
         let res_p1=p_gInpt/3;
         setP1(res_p1.toFixed(2));
         
@@ -121,7 +143,7 @@ const Example=()=> {
         let res_Ikz = k*In;
         setIkz(res_Ikz.toFixed(2));
 
-        let res_Sf=In/k_g;
+        let res_Sf=In/parseFloat(k_g);
         setSf(res_Sf.toFixed(2));
 
         let res_Snz=Sf/2;
@@ -136,34 +158,23 @@ const Example=()=> {
         let res_alpha=Math.pow((uf/230),2);
         set_alpha(res_alpha.toFixed(2));
        
-        let res_Zt=a*alpha/(p_g+b);
+        let res_Zt=parseFloat(a)*parseFloat(alpha)/(parseFloat(p_g)+parseFloat(b));
         setZt(res_Zt.toFixed(2));
 
-        let res_Xn=xn_e*l*Math.pow(10,-3);
+        let res_Xn=parseFloat(xn_e)*parseInt(l)*(Math.pow(10,-3));
         setXn(res_Xn.toFixed(2));
         
-        let res_Zn=Math.sqrt(Math.pow((Rf+Rnz),2)+Math.pow((Xf+Xnz+Xn),2));
+        let res_Zn=Math.sqrt(Math.pow((parseFloat(Rf)+parseFloat(Rnz)),2)+Math.pow((parseFloat(Xf)+parseFloat(Xnz)+parseFloat(Xn)),2));
         setZn(res_Zn.toFixed(2));
 
-        let res_Ikef=uf/(Zt/3+Zn);
+        let res_Ikef=parseFloat(uf)/(parseFloat(Zt)/parseFloat(3)+parseFloat(Zn));
         setIkef(res_Ikef.toFixed(2));
        
-        if(Ikef > Ikz){
+        if(parseFloat(Ikef) > parseFloat(Ikz)){
             setIsLogicError(false);
         }else{
             setIsLogicError(true);
         }
-        
-        /*console.log(
-            "PГ:",p_gInpt,
-            "L:",lInpt,
-            "Uф",ufInpt,
-            "a",aInput,
-            "b",bInput,
-            "PГ",p_g_eq, 
-            "ro",ro,
-            "k_g",k,
-            "Ikef",Ikef);*/
         
         if(containsErrorValue(res_Ikef)){
             setIsError(true);
@@ -189,13 +200,11 @@ const Example=()=> {
             <br/>3. Фазное напряжение <Majax.Node inline formula="U_{ф}="/> <Input style={inputStyle} onChange={e=>setUfInpt(changeValue(e))}/> <Majax.Node inline formula="В"/>
             <br/>4. Схема соединения: 
                 <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
-                    const select_a=e.target.value1;
-                    const select_b=e.target.value2;
-                    setAInput(parseFloat(select_a).toFixed(2));
-                    setBInput(parseFloat(select_b).toFixed(4));
+                    const select_ab=e.target.value;
+                    setABInput(parseInt(select_ab));
                 }}>                
-                    <option value1="77.95" value2="0.0648">треугольник-звезда</option>
-                    <option value1="22.54" value2="-0.1176">звезда-звезда</option>   
+                    <option value="1">треугольник-звезда</option>
+                    <option value="2">звезда-звезда</option>   
                 </Input>
             <br/>5. Вид защиты:
                 <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
@@ -206,7 +215,7 @@ const Example=()=> {
                     <option value="2">для автомата защиты при  P {'<'} 100 </option>
                     <option value="3">для автомата защиты при P {'≥'} 100 </option>    
                 </Input> 
-            <br/>6. Тип линии: <Input Input className="custom-select" type="select" style={selectStyle} nChange={(e)=>{
+            <br/>6. Тип линии: <Input Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
                     const select_line=e.target.value
                     setXn_eInpt(parseFloat(select_line).toFixed(2));
                 }}>
@@ -232,19 +241,19 @@ const Example=()=> {
             2. Номинальный ток нагрузки на одну фазу:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`I_{н}=P_{1}/U_{ф}= 1·10^{3}·${p1}/${uf} = ${In}A`}/>
+            <Majax.Node inline formula={`I_{н}=P_{1}/U_{ф} = 1·10^{3}·${p1}/${uf} = ${In}A`}/>
             </CardText>
             <CardText>
             3. Минимальное требующееся значение тока:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`I_{кз}≥k·I_{н}= ${k}·${In} = ${Ikz}A`}/>
+            <Majax.Node inline formula={`I_{кз}≥k·I_{н} = ${k}·${In} = ${Ikz}A`}/>
             </CardText>
             <CardText>
             4. Требующееся значение сечения фазного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`S_{ф}=I_{н}/K_{г}= ${In}/${k_g} = ${Sf}мм^{2}`}/>
+            <Majax.Node inline formula={`S_{ф}=I_{н}/K_{г} = ${In}/${k_g} = ${Sf}мм^{2}`}/>
             </CardText>
             <CardText>
             5. Требующееся значение сечения нулевого защитного провода:
@@ -256,37 +265,37 @@ const Example=()=> {
             6. Активное сопротивление фазного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`R_{ф}=ρ·l/S_{ф}= 10^{6}·${ro}·10^{−8}·${l}/${Sf} = ${Rf}Ом`}/>
+            <Majax.Node inline formula={`R_{ф}=ρ·l/S_{ф} = 10^{6}·${ro}·10^{−8}·${l}/${Sf} = ${Rf}Ом`}/>
             </CardText>
             <CardText>
             7. Активное сопротивление нулевого защитного провода:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`R_{нз}=ρ·l/S_{нз}= 10^{6}·${ro}·10^{−8}·${l}/${Snz}= ${Rnz}Ом`}/>
+            <Majax.Node inline formula={`R_{нз}=ρ·l/S_{нз} = 10^{6}·${ro}·10^{−8}·${l}/${Snz}= ${Rnz}Ом`}/>
             </CardText>
             <CardText>
             8. Вычислим значение  <Majax.Node inline formula="Z_{Т}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`Z_{Т}=A·α/(P_{Г}+B) = ${a}·${alpha}/(${p_g}−${b}) = 2.81 Ом`}/>
+            <Majax.Node inline formula={`Z_{Т}=A·α/(P_{Г}+B) = ${a}·${alpha}/(${p_g}+${b}) = ${Zt} Ом`}/>
             </CardText>
             <CardText>
             9. Вычислим значение  <Majax.Node inline formula="X_{п}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`X_{п}=X^{′}_{п}·l·1·10^{−3}=${xn_e}·${l}·1·10^{−3}=3.80·10^{−1}Ом/км`}/>
+            <Majax.Node inline formula={`X_{п}=X^{′}_{п}·l·1·10^{−3} = ${xn_e}·${l}·1·10^{−3}=${Xn}Ом/км`}/>
             </CardText>
             <CardText>
             10. Вычислим значение <Majax.Node inline formula="Z_{п}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula="Z_{п}=\sqrt{(R_{ф}+R_{нз})^{2}+(X_{ф}+X_{нз}+X_{п})^{2}}=\sqrt{(1.29 + 2.58)^{2}+(1.52·10−2+1.52·10−2+3.80·10−1)^{2}}=3.90Ом"/>
+            <Majax.Node inline formula={`Z_{п}=\\sqrt{(R_{ф}+R_{нз})^{2}+(X_{ф}+X_{нз}+X_{п})^{2}} =\\sqrt{(${Rf} + ${Rnz})^{2}+(${Xf}+${Xnz}+${Xn})^{2}}=${Zn}Ом`}/>
             </CardText>
             <CardText>
             11. Вычислим <Majax.Node inline formula="I_{кэф}"/>:
             </CardText>
             <CardText className="text-center">
-            <Majax.Node inline formula={`I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = ${uf}/(${Zt}/3 + ${Zn}) = 78.58A`}/>
+            <Majax.Node inline formula={`I_{кэф}=U_{ф}/(Z_{Т}/3+Z_{п}) = ${uf}/(${Zt}/3 + ${Zn}) = ${Ikef}A`}/>
             </CardText>
             <CardText>
             12.  <Majax.Node inline formula="I_{кэф} > I_{кз} →"/> Расчет окончен
