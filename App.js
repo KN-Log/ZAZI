@@ -12,9 +12,11 @@ import Br_theor_info from './components/Br_theor_info/br_theor_info';
 import Algo_opt_ground_dev from './components/Algo_opt_ground_dev/algo_opt_ground_dev';
 import Break_cap_neutral from './components/Break_cap_neutral/break_cap_neutral';
 import An_examp_eval_break_cap_null from './components/An_examp_eval_break_cap_null/an_examp_eval_break_cap_null';
+import React from 'react';
 
 function App(){
   return (
+    
     <Container className="p-0" fluid>
         <HashRouter>
           <Header />         
@@ -25,6 +27,7 @@ function App(){
               <Route path="/an_examp_eval_break_cap_null" component={An_examp_eval_break_cap_null}/>
         </HashRouter>
     </Container>
+   
   );
 }
 

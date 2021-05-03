@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Majax from 'react-mathjax';
 import {changeValue,containsErrorValue, setErrorValue } from './../../common/example';
-import {CardText, Row, Col,Input,Card,CardBody,Button,Alert} from 'reactstrap';
-
-
+import {CardText, Row, Col,Input,Card,CardBody,Button,Alert, Label, CustomInput} from 'reactstrap';
 
 const Example=()=> {
 
@@ -73,7 +71,7 @@ const Example=()=> {
         display:"inline",
     }
 
-
+    useEffect(() => {}, [Ikef])
     const resolve = () => {
         setIsError(false)
 
@@ -138,7 +136,7 @@ const Example=()=> {
         setP1(res_p1.toFixed(2));
         
         let res_In = (Math.pow(10, 3)*p1/uf);
-        setIn(res_In.toFixed(2));
+        setIn(res_In);
 
         let res_Ikz = k*In;
         setIkz(res_Ikz.toFixed(2));
@@ -193,36 +191,40 @@ const Example=()=> {
         <Col lg="9">
         <Card className="mt-3">
         <CardBody >
-           <CardText className={textStyle}>
+           <CardText style={textStyle}>
             <br/>Исходные данные
             <br/>1. Габаритная мощность <Majax.Node inline formula="P_{Г}= "/> <Input style={inputStyle} onChange={e=>setP_gInpt(changeValue(e))}/> <Majax.Node inline formula="кВА"/>
             <br/>2. Длина сети: <Majax.Node inline formula="l="/>  <Input style={inputStyle} onChange={e=>setLInpt(changeValue(e))}/> <Majax.Node inline formula="м"/>
             <br/>3. Фазное напряжение <Majax.Node inline formula="U_{ф}="/> <Input style={inputStyle} onChange={e=>setUfInpt(changeValue(e))}/> <Majax.Node inline formula="В"/>
-            <br/>4. Схема соединения: 
-                <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
+            <br/><Label>4. Схема соединения:
+                <CustomInput id="setABInput" type="select" style={selectStyle}  onChange={(e)=>{
                     const select_ab=e.target.value;
                     setABInput(parseInt(select_ab));
                 }}>                
                     <option value="1">треугольник-звезда</option>
                     <option value="2">звезда-звезда</option>   
-                </Input>
-            <br/>5. Вид защиты:
-                <Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
+                </CustomInput>
+            </Label>
+            <br/><Label>5. Вид защиты:
+                <CustomInput id="setP_g_eqInpt" type="select" style={selectStyle} onChange={(e)=>{
                     const select_plav=e.target.value;
                     setP_g_eqInpt(parseInt(select_plav));
                 }}>                
                     <option value="1">для плавкой вставки </option>
                     <option value="2">для автомата защиты при  P {'<'} 100 </option>
                     <option value="3">для автомата защиты при P {'≥'} 100 </option>    
-                </Input> 
-            <br/>6. Тип линии: <Input Input className="custom-select" type="select" style={selectStyle} onChange={(e)=>{
+                </CustomInput> 
+            </Label>
+            <br/><Label> 6. Тип линии: 
+                <CustomInput  id="setXn_eInpt" type="select" style={selectStyle} onChange={(e)=>{
                     const select_line=e.target.value
                     setXn_eInpt(parseFloat(select_line).toFixed(2));
                 }}>
                     <option value="0.4">воздушная линии</option>
                     <option value="0.07">кабельная линия</option>
-                </Input>
-            <br/>7. Материал провода: <Majax.Node inline formula="ρ="/> <Input Input style={inputStyle} onChange={e=>setRoInpt(changeValue(e))}/> <Majax.Node inline formula="А/мм^{2}"/>
+                </CustomInput>
+            </Label>
+            <br/>7. Материал провода: <Majax.Node inline formula="ρ="/> <Input style={inputStyle} onChange={e=>setRoInpt(changeValue(e))}/> <Majax.Node inline formula="А/мм^{2}"/>
             <br/>8. Допустимая плотность тока: <Majax.Node inline formula="K_{г}="/> <Input style={inputStyle} onChange={e=>setK_gInpt(changeValue(e))}/> <Majax.Node inline formula="А/мм^{2}"/>
             </CardText>
             <CardText>
@@ -302,12 +304,12 @@ const Example=()=> {
             </CardText>
             <CardText className="text-center">
                 <Majax.Node inline formula={`${Ikef} > ${Ikz}`}/> 
-                <Alert className="mt-3" color="danger" isOpen={isLogicError}>Условие не выполнено</Alert>
             </CardText>
             <CardText>
-                <Alert className="mt-3" color="danger" isOpen={isError}>Невозможно посчитать</Alert>
-                <Majax.Node inline formula={`${Ikef}`}/>
+                <Majax.Node inline formula={`${Ikef}`}/> 
             </CardText>
+            <Alert className="mt-3" color="danger" isOpen={isLogicError}>Условие не выполнено</Alert>
+            <Alert className="mt-3" color="danger" isOpen={isError}>Невозможно посчитать</Alert>
         </CardBody>
         </Card>
         </Col>
